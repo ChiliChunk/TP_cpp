@@ -14,3 +14,5 @@ struct TList {
 bool ajoute(TList *,TPersonne *);
 
 TPersonne * supprime(TList * list , const string id);
+
+void affiche (const TList * );

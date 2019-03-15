@@ -39,25 +39,43 @@ TPersonne * supprime(TList * list , const string id){
         TNoeud * currentNode = list->queue;
         while (currentNode != nullptr){
             if (currentNode->contenu->id == id){
-                cout << "Id trouvé, supprimement en cours ;)\n";
-                if (currentNode->predent == nullptr){ // pas de précédent => MAJ la queue de la list
-                    list->queue->currentNode->suivant
+                cout << "Id trouvé, suppression en cours ;)\n";
+                TNoeud * nodePrec = currentNode->precedent;
+                TNoeud * nodeSuiv = currentNode->suivant;
+                if (nodePrec == nullptr){
+                    list->queue = nodeSuiv;
                 }
-                else{
-                    currentNode->precedent->suivant = currentNode->suivant
-                    currentNode->suivant->precedent = currentNode->precedent
+                if(nodeSuiv == nullptr){
+                    list->tete = nodePrec;
                 }
-                if (currentNode->suivant == nullptr){ // pas de suivant => MAJ la tete de la list
-                    list->tete = currentNode->precedent
+                else if (nodePrec != nullptr && nodeSuiv != nullptr){
+                    nodePrec->suivant = nodeSuiv;
+                    nodeSuiv->precedent = nodePrec;
                 }
+                return currentNode->contenu;
             }
             else{
                 currentNode = currentNode->suivant;
             }
         }
+        return nullptr;
     }
     else{
-        return nullptr
+        return nullptr;
+    }
+}
+
+void afficheList(const TList * list){
+    cout << "affichage de la queue a la tete\n";
+    if (list->queue == nullptr){
+        cout << "aucun element dans la liste";
+    }
+    else{
+        TNoeud * currentNode = list->queue;
+        while(currentNode != nullptr){
+            affiche(currentNode->contenu);
+            currentNode = currentNode->suivant;
+        }
     }
 }
 
@@ -67,5 +85,7 @@ int main(){
     ajoute(t , p);   
     TPersonne * p2 = new_personne();
     ajoute(t , p2);   
-    
+    afficheList(t);
+    supprime(t,p->id);
+    afficheList(t);
 }
