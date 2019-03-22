@@ -6,6 +6,7 @@ class CPersonne{
     public:
         CPersonne();
         CPersonne(std::string,std::string,std::string,std::string);
+        CPersonne(const CPersonne&);
         void setNom(std::string);
         void setPrenom(std::string);
         void setMail(std::string);
@@ -14,4 +15,8 @@ class CPersonne{
         std::string getPrenom() const;
         std::string getMail() const;
         std::string getId() const;
+        ~CPersonne();
+        bool operator==( const CPersonne);
+        friend std::ostream& operator<<(std::ostream& , CPersonne&);
+        CPersonne& operator=(CPersonne&);
 };
